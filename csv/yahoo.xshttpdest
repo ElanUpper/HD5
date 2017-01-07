@@ -1,0 +1,10 @@
+host = "download.finance.yahoo.com";
+port = 80;
+description = "my stock-price checker";
+useSSL = false;
+pathPrefix = "/d/quotes.csv?f=a";
+authType = none;
+useProxy = false;
+proxyHost = "";
+proxyPort = 0;
+timeout = 0;

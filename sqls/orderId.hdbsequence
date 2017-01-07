@@ -1,0 +1,9 @@
+
+schema= "Elan";
+
+start_with = 200000000;
+maxvalue   = 299999999;  
+increment_by = 1;      //  -1 for descending
+cycles= false;         // when reaching max/min value 
+depends_on_table = "i321482.sqls::PurchaseOrder.Header" ;
+

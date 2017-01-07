@@ -1,0 +1,19 @@
+role i321482.roles::baseRole extends role sap.hana.uis.db::SITE_USER, 
+										  sap.hana.xs.lm.roles::Administrator,
+										  sap.hana.ide.roles::SecurityAdmin,
+										  sap.hana.xs.ide.roles::Developer,
+										  sap.hana.xs.debugger::Debugger,
+										  sap.hana.xs.admin.roles::HTTPDestViewer,
+										  sap.hana.xs.admin.roles::HTTPDestAdministrator
+						     extends catalog role "SAP_INTERNAL_HANA_SUPPORT"
+{
+	catalog schema "_SYS_REPO": SELECT, EXECUTE ;
+	catalog schema "_SYS_BIC":  SELECT, CREATE ANY, UPDATE, INSERT, DROP, DELETE;
+	catalog schema "SAP_HANA_DEMO":  SELECT, CREATE ANY, UPDATE, INSERT ;
+	system privilege: REPO.MODIFY_CHANGE , 
+		     		  REPO.MODIFY_OWN_CONTRIBUTION ,
+		     		  CREATE REMOTE SOURCE, AGENT ADMIN, ADAPTER ADMIN,
+		     		  INIFILE ADMIN, 
+		     		  SERVICE ADMIN ;    	
+    catalog sql object "SYS"."REPOSITORY_REST": EXECUTE;	
+}

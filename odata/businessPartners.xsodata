@@ -1,0 +1,9 @@
+
+// try access https://hanabox1:4305/i321482/odata/businessPartners.xsodata/$metadata
+//            https://hanabox1:4305/i321482/odata/businessPartners.xsodata/BusinessPartner
+//            https://hanabox1:4305/i321482/odata/businessPartners.xsodata/BusinessPartner?$top=3&$skip=5
+
+service  { 
+  "SAP_HANA_DEMO"."sap.hana.democontent.epm.data::MD.BusinessPartner" as "BusinessPartner" ;
+} 
+

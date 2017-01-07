@@ -1,0 +1,12 @@
+// To define an HTTP destination, you can use the following code.
+
+host = "monsoon.mo.sap.corp";
+port = 443;  
+description = "stop server";
+useSSL = false;
+pathPrefix = "/organizations/i321482/projects/hana2/instances/mo-8f760ea25/stop";
+authType = none;
+useProxy = true;
+proxyHost = "proxy.sin.sap.corp";
+proxyPort = 8080;
+timeout = 0;

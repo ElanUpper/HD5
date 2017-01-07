@@ -1,0 +1,40 @@
+PROCEDURE "Elan"."i321482.procedures::update_product_prices" ( 
+	in im_rate decimal(15,2),
+	in im_direction nvarchar(10) DEFAULT 'INCREASE',
+	out ex_products "Elan"."i321482.sqls::Product.Products"
+) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+	--DEFAULT SCHEMA <default_schema_name>
+AS
+BEGIN
+
+DECLARE v_new_price decimal(15,2);
+
+ DECLARE CURSOR c_products
+    FOR SELECT PRODUCTID, CATEGORY, PRICE
+   FROM "Elan"."i321482.sqls::Product.Products";
+
+ for cur_row AS c_products DO 
+   
+   IF :im_direction = 'INCREASE' THEN 
+     v_new_price := cur_row.PRICE + (cur_row.PRICE * :im_rate);
+   elseif 
+     :im_direction = 'DECREASE' THEN v_new_price := cur_row.PRICE - (cur_row.PRICE * :im_rate);
+   END IF;
+
+  UPDATE "Elan"."i321482.sqls::Product.Products"
+     SET PRICE = v_new_price
+   WHERE PRODUCTID = cur_row.PRODUCTID;
+
+ end for ;
+
+ ex_products =
+   
+   select PRODUCTID, CATEGORY, PRICE
+     from "Elan"."i321482.sqls::Product.Products" ;
+
+END;
+
+-- call "Elan"."i321482.procedures::update_product_prices"( im_rate => '.25', im_direction => 'INCREASE', ex_products => ? );
+

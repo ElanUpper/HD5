@@ -1,0 +1,25 @@
+PROCEDURE "Elan"."i321482.procedures::get_bp_addresses_by_role" ( 
+  in im_partnerrole nvarchar(3) default '02',
+  out ex_bp_addresses "i321482.sqls::GlobalTypes.tt_bp_addresses" ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+	-- DEFAULT SCHEMA "_SYS_BIC"
+	READS SQL DATA AS
+BEGIN
+
+  ex_bp_addresses =
+  
+	select a."PARTNERID", a."PARTNERROLE", a."EMAILADDRESS",
+	       a."COMPANYNAME", 
+	       a."ADDRESSES.ADDRESSID" as "ADDRESSID", 
+	       b."CITY",
+		   b."POSTALCODE", 
+		   b."STREET"
+	from "SAP_HANA_DEMO"."sap.hana.democontent.epm.data::MD.BusinessPartner" as a
+	inner join "SAP_HANA_DEMO"."sap.hana.democontent.epm.data::MD.Addresses" as b
+	   on a."ADDRESSES.ADDRESSID" = b."ADDRESSID"
+	where a."PARTNERROLE" = :im_partnerrole;
+
+END;
+
+-- CALL "Elan"."i321482.procedures::get_bp_addresses_by_role"( im_partnerrole => '02', ex_bp_addresses => ? )

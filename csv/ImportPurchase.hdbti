@@ -1,0 +1,16 @@
+
+import = 
+        [
+            {
+                cdstable = "i321482.sqls::PurchaseOrder.Item";// Target CDS table
+                file = "i321482.csv:item.csv";          // Source CSV file
+                header = false;                           // CSV file does not include a header first line
+                delimField = ",";                         // CSV data value delimiter, default is ","
+            },
+            {
+                cdstable = "i321482.sqls::PurchaseOrder.Header";// Target CDS table
+                file = "i321482.csv:head.csv";          // Source CSV file
+                header = false;                           // CSV file does not include a header first line
+                delimField = ",";                         // CSV data value delimiter, default is ","
+            }
+         ];

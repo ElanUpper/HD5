@@ -1,0 +1,20 @@
+namespace i321482.sqls;
+
+@Schema: 'Elan'
+context Product {
+
+	@Catalog.tableType: #COLUMN
+	Entity Products{
+		key PRODUCTID: String(10);
+		CATEGORY:      String(40);
+		PRICE:         Decimal(15,2);
+	};
+	
+	@Catalog.tableType: #COLUMN
+	Entity ProductLog{
+		key PRODUCTID: String(10);
+		key DATETIME:  UTCDateTime;
+		key USERNAME:  String(20);
+		LOGTEXT: String(500);
+	};
+};

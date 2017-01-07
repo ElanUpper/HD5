@@ -1,0 +1,19 @@
+FUNCTION "Elan"."i321482.functions::apply_discount" ( 
+    im_price decimal(15,2),
+    im_discount decimal(15,2))
+    RETURNS ex_result decimal(15,2)
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER AS
+BEGIN
+
+  ex_result := :im_price - ( :im_price * :im_discount );
+
+END;
+
+/*
+
+select PRODUCTID, CATEGORY, PRICE, 
+       "Elan"."i321482.functions::apply_discount"(PRICE, 0.33 ) as "SALEPRICE" 
+  from "SAP_HANA_DEMO"."sap.hana.democontent.epm.data::MD.Products";
+
+*/
