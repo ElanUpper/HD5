@@ -1,0 +1,43 @@
+PROCEDURE "city"."i321482.CodeJam.services::CreatePro" ( 
+     in  new "city"."i321482.CodeJam.data::city.city",
+     out error "city"."i321482.CodeJam.data::city.tt_errror"
+)
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+AS
+
+lv_gid   string; 
+lv_cname string;
+lv_aname string;
+lv_lat   string;
+lv_lon   string;
+lv_fcode string;
+lv_ccode string;
+lv_pop   Integer;
+lv_tz    string;
+
+BEGIN
+
+    -- 防止异常
+    declare exit handler for SQLEXCEPTION
+    begin
+    error = select ::SQL_ERROR_CODE    as http_status_code, 
+      			   ::SQL_ERROR_MESSAGE as error_message,
+      			   ::SQL_ERROR_MESSAGE as detail 
+      	      from dummy ;
+    end;
+    
+    select GEONAME_ID, CITY_NAME, ASCII_NAME, LAT, LON, FEATURE_CODE, COUNTRY_CODE, POPULATION, TIMEZONE 
+      into lv_gid, lv_cname, lv_aname, lv_lat, lv_lon, lv_fcode, lv_ccode, lv_pop, lv_tz
+      from :new;
+    
+    if :lv_gid = ' ' then
+        error = select 400      as http_status_code,
+                'invalid date'  as error_message,
+                'Invalid value for GEO Name' as detail 
+                from dummy;
+    else
+        insert into "city"."i321482.CodeJam.data::city.city" values (lv_gid, lv_cname, lv_aname, lv_lat, lv_lon, lv_fcode, lv_ccode,  CAST(lv_pop AS Integer), lv_tz ); 
+    end if; 
+   
+END

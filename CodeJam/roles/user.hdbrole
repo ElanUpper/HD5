@@ -1,0 +1,6 @@
+role i321482.CodeJam.roles::user
+{
+catalog schema "city": CREATE ANY, SELECT, EXECUTE;
+
+
+}

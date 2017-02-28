@@ -1,0 +1,22 @@
+PROCEDURE "Elan"."i321482.procedures::get_all_products_info" ( 
+  out var_out table (
+	   productid nvarchar(10),
+	   category  nvarchar(40),
+	   price     decimal(15,2) )
+)  
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+	READS SQL DATA AS
+BEGIN
+
+  declare lv_productid nvarchar(10) ;
+  declare i integer ;
+ 
+  vt_products = 
+    select distinct productid from "Elan"."i321482.sqls::Product.Products" ;
+ 
+  -- 并发读取
+  var_out = MAP_MERGE (:vt_products, "Elan"."i321482.functions::GetDetailProductInfos"(:vt_products.productid) 
+  					   ) ;
+  
+END;

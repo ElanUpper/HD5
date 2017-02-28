@@ -1,5 +1,7 @@
+# https://git-scm.com/docs/gitignore
+
 # folders
-/.settings/
+/.settings/**
 /build/
 
 # configuraton files

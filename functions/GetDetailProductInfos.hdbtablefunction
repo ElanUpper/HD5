@@ -1,0 +1,13 @@
+FUNCTION "Elan"."i321482.functions::GetDetailProductInfos" ( in i_product nvarchar(10) )
+ RETURNS table ( productid nvarchar(10),
+	   			 category  nvarchar(40),
+	   			 price     decimal(15,2) )
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER AS
+BEGIN
+
+  return
+    select productid, category, price from "Elan"."i321482.sqls::Product.Products"
+     where productid = :i_product ;  
+
+END;

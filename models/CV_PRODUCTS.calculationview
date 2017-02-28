@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CV_PRODUCTS" applyPrivilegeType="NONE" checkAnalyticPrivileges="false" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="SCRIPT_BASED" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" scriptParametersCaseSensitive="true">
+  <origin/>
+  <descriptions defaultDescription="CV_PRODUCTS"/>
+  <metadata changedAt="2017-02-16 16:36:54.726"/>
+  <defaultSchema schemaName="I321482"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources/>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:SqlScriptView" id="Script_View">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute datatype="NVARCHAR" id="PRODUCT" length="15"/>
+        <viewAttribute datatype="NVARCHAR" id="STORE" length="15"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <definition> 
+/********* Begin Procedure Script ************/ 
+BEGIN 
+
+var_1 = 
+ 	 select distinct product, store 
+ 	   from products;
+
+  var_out = 
+ 	 
+ 	 select distinct product, store 
+ 	   from products
+	 union all
+ 	 select distinct product, store 
+ 	   from :var_1
+ 	 ;
+
+END /********* End Procedure Script ************/</definition>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Script_View">
+    <descriptions/>
+    <attributes>
+      <attribute id="PRODUCT" order="1">
+        <descriptions defaultDescription="PRODUCT"/>
+        <keyMapping columnObjectName="Script_View" columnName="PRODUCT"/>
+      </attribute>
+      <attribute id="STORE" order="2">
+        <descriptions defaultDescription="STORE"/>
+        <keyMapping columnObjectName="Script_View" columnName="STORE"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

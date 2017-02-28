@@ -1,0 +1,23 @@
+PROCEDURE "Elan"."i321482.procedures::get_detail_product_info" ( 
+  in i_product nvarchar(10),
+  out var_out table (
+	   productid nvarchar(10),
+	   category  nvarchar(40),
+	   price     decimal(15,2) )
+) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+	READS SQL DATA AS
+BEGIN
+
+  var_out = 
+    select productid, category, price from "Elan"."i321482.sqls::Product.Products"
+     where productid = :i_product ;  
+
+  if not is_empty(:var_out) then
+    select count(1) || ' records' from :var_out ;  	     
+  else 
+    select 'no records return' from dummy ;
+  end if ;
+
+END;

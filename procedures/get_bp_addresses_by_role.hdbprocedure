@@ -18,7 +18,8 @@ BEGIN
 	from "SAP_HANA_DEMO"."sap.hana.democontent.epm.data::MD.BusinessPartner" as a
 	inner join "SAP_HANA_DEMO"."sap.hana.democontent.epm.data::MD.Addresses" as b
 	   on a."ADDRESSES.ADDRESSID" = b."ADDRESSID"
-	where a."PARTNERROLE" = :im_partnerrole;
+	where a."PARTNERROLE" = BIND_AS_PARAMETER(:im_partnerrole)
+	   or a."PARTNERROLE" = BIND_AS_VALUE(:im_partnerrole) ;
 
 END;
 

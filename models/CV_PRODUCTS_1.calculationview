@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CV_PRODUCTS_1" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="CV_PRODUCTS_1"/>
+  <metadata changedAt="2017-02-16 16:25:25.367"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="PRODUCTS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="I321482" columnObjectName="PRODUCTS"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews/>
+  <logicalModel id="PRODUCTS">
+    <descriptions/>
+    <attributes>
+      <attribute id="PRODUCT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRODUCT"/>
+        <keyMapping schemaName="I321482" columnObjectName="PRODUCTS" columnName="PRODUCT"/>
+      </attribute>
+      <attribute id="STORE" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STORE"/>
+        <keyMapping schemaName="I321482" columnObjectName="PRODUCTS" columnName="STORE"/>
+      </attribute>
+      <attribute id="CUSTOMER" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CUSTOMER"/>
+        <keyMapping schemaName="I321482" columnObjectName="PRODUCTS" columnName="CUSTOMER"/>
+      </attribute>
+      <attribute id="UNIT" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UNIT"/>
+        <keyMapping schemaName="I321482" columnObjectName="PRODUCTS" columnName="UNIT"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="QUANTITY" order="4" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="QUANTITY"/>
+        <measureMapping schemaName="I321482" columnObjectName="PRODUCTS" columnName="QUANTITY"/>
+      </measure>
+      <measure id="REVENUE" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="REVENUE"/>
+        <measureMapping schemaName="I321482" columnObjectName="PRODUCTS" columnName="REVENUE"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>
