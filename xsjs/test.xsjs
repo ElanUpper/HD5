@@ -10,7 +10,7 @@ function handleGet() {
     return "the price: "  + response.body.asString();
 }
 
-// Request process 
+// Request process  
 function processRequest(){
 	try {
 	    switch ( $.request.method ) {

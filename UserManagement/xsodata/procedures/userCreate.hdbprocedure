@@ -1,0 +1,36 @@
+PROCEDURE "User"."i321482.UserManagement.xsodata.procedures::userCreate" ( 
+	IN  new   "User".UserDetails, 
+	OUT error "User".tt_errors
+) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+AS
+BEGIN
+/***************************** 
+	Write your procedure logic 
+ *****************************/
+ declare lv_pers_no   string;
+ declare lv_firstname string;
+ declare lv_lastname  string;
+ declare lv_e_mail    string;
+ -- the location @ of EMAIL
+ declare lv_locate    integer;
+
+ -- 获取输入值
+ select PERS_NO, FIRSTNAME, LASTNAME, E_MAIL 
+    into lv_pers_no, lv_firstname, lv_lastname, lv_e_mail
+    from :new;  
+ 
+ -- 获取@在输入email里面的位置
+ select locate(:lv_e_mail, '@') into lv_locate from dummy ;
+ -- 如果没有@
+ if :lv_locate <= 0 then
+   error = select 500 as http_status_code, 
+               'Invalid email ' || lv_firstname as error_message, 
+                     'No Way! E-Mail field can not be empty' as detail from dummy;
+ else
+   insert into "User".UserDetails 
+ 	values (:lv_pers_no, :lv_firstname, :lv_lastname, :lv_e_mail);     		           
+ end if; 
+
+END;

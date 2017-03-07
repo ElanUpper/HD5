@@ -1,0 +1,11 @@
+{
+    "description": "Explain Job",
+    "action": "i321482.job:InsertIt.xsjs::DoIt",
+    "schedules": [ 
+    {
+          "description": "run every 20 seconds",
+          "xscron": "* * * * * * */20",
+          "parameter": { "INcount": "50" }
+      }
+    ]
+}

@@ -1,0 +1,11 @@
+
+table.schemaName = "User";
+table.tableType = COLUMNSTORE;
+
+table.columns = [
+    {name = "ID";     sqlType = NVARCHAR; length = 10; },
+    {name = "NAME";   sqlType = NVARCHAR; length = 60; },
+    {name = "GENDER"; sqlType = NVARCHAR; length = 10; },
+    {name = "AGE";  sqlType = INTEGER ;} ];
+
+table.primaryKey.pkcolumns = ["ID"];

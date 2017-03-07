@@ -1,0 +1,36 @@
+PROCEDURE "User"."i321482.job::InsertIt" ( ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+AS
+BEGIN
+
+  declare i  	 integer ;
+  declare GENDER nvarchar(60);
+
+  var_out = 
+    select '' as id, '' as name, '' as gender, 0 as age
+      from dummy ;
+  
+  for i in 1 .. 100 do
+    if mod(i,2) = 0 then 
+      GENDER = 'man';
+    else
+      gender = 'woman';
+    end if;
+    var_newer = 
+      select 'i' || :i as id, 'Elan' || :i as name, :gender as gender, mod(:i, 20) as age
+        from dummy ;
+    
+    var_out = 
+       select * from :var_newer
+       union all
+       select * from :var_out ;
+  end for ;
+  -- 先删除然后在插入
+  delete from "User"."i321482.job::Customers"  ;
+  
+  insert into "User"."i321482.job::Customers" 
+   select * from :var_out 
+    where id <> '';
+ 
+END;

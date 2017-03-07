@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CV_PRODUCT_2" applyPrivilegeType="SQL_ANALYTIC_PRIVILEGE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="CV_PRODUCT_2"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="CV_PRODUCTS" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/i321482.models/calculationviews/CV_PRODUCTS</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRODUCT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDWEISER"/>
+        </viewAttribute>
+        <viewAttribute id="STORE"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="L_001" expressionLanguage="COLUMN_ENGINE">
+          <formula>10</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CV_PRODUCTS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STORE" source="STORE"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="PRODUCT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRODUCT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="PRODUCT"/>
+      </attribute>
+      <attribute id="STORE" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STORE"/>
+        <keyMapping columnObjectName="Projection_1" columnName="STORE"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="L_001" order="3" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="L_001"/>
+        <measureMapping columnObjectName="Projection_1" columnName="L_001"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="40" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

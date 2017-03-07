@@ -1,0 +1,8 @@
+import = [ 
+    { 
+        cdstable   = "i321482.CodeJam.data::city.city";
+        file 	   = "i321482.CodeJam.data:data.csv";  
+        delimField = ",";          
+        header     = false;        
+    } 
+];

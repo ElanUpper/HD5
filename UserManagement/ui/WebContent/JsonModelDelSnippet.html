@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" id="sap-ui-bootstrap"     
+  data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.commons,sap.ui.table,sap.m"></script>
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+
+  <script>
+    var $lbl = sap.ui.commons.Label;
+    var $fld = sap.ui.commons.TextField;
+   
+    var tbl = new sap.ui.table.Table({tableId: "tblTest",
+        selectionMode: sap.ui.table.SelectionMode.Single ,
+        columns: [
+          new sap.ui.table.Column({
+            label: new $lbl({ text: "User" }), 
+            template: new $fld({value: "{userid}"}) // 这里具体查看server返回的字段 大小写敏感
+          }),
+          new sap.ui.table.Column({
+            label: new $lbl({text:"first name"}), 
+            template: new $fld({value: "{firstname}"})
+          }),
+          new sap.ui.table.Column({
+              label: new $lbl({text:"last name"}), 
+              template: new $fld({value: "{lastname}"})
+            })  ,
+          new sap.ui.table.Column({
+              label: new $lbl({text:"email"}), 
+              template: new $fld({value: "{email}"})
+            })                
+        ]
+    });
+ 
+	var oModel = new sap.ui.model.json.JSONModel();
+	var url = 'https://10.128.244.125:44304/sap/bc/zblog'; 
+	$.ajax({
+		type: "GET",
+		url: url,
+	    dataType: 'json',
+		beforeSend: function (request) {
+		  //request.setRequestHeader("content-encoding", "gzip");
+		},
+		success: function(data, status) {
+		  oModel.setData(data);
+		},
+		error: function(data, status) {  
+		  alert('Refresh failure, status:', status);
+		}  
+	});    
+	
+	tbl.setModel(oModel);    
+    tbl.bindRows("/data");
+    tbl.placeAt("content");
+ 
+  </script>
+</head>
+<body class="sapUiBody">
+    <div id="content"></div>
+</body>
+</html>

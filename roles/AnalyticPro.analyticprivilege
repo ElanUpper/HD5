@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Privilege:analyticPrivilege xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="1.1" id="AnalyticPro" privilegeType="SQL_ANALYTIC_PRIVILEGE">
+  <descriptions defaultDescription="AnalyticPro"/>
+  <securedModels allInformationModels="false">
+    <modelUri>/i321482.models/calculationviews/CV_PRODUCT_2</modelUri>
+  </securedModels>
+  <whereSql>(&quot;PRODUCT&quot; = '1')</whereSql>
+</Privilege:analyticPrivilege>

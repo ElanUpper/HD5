@@ -4,7 +4,8 @@ role i321482.roles::baseRole extends role sap.hana.uis.db::SITE_USER,
 										  sap.hana.xs.ide.roles::Developer,
 										  sap.hana.xs.debugger::Debugger,
 										  sap.hana.xs.admin.roles::HTTPDestViewer,
-										  sap.hana.xs.admin.roles::HTTPDestAdministrator
+										  sap.hana.xs.admin.roles::HTTPDestAdministrator,
+										  sap.hana.xs.admin.roles::JobAdministrator
 						     extends catalog role "SAP_INTERNAL_HANA_SUPPORT",
 						     					   "RESTRICTED_USER_JDBC_ACCESS"
 { 

@@ -1,0 +1,7 @@
+
+service  { 
+   "User"."USERDETAILS" as "Users" 
+    create using "i321482.UserManagement.xsodata.xslib:userCRUD.xsjslib::userCreate" 
+    update using "i321482.UserManagement.xsodata.xslib:userCRUD.xsjslib::userUpdate"
+   ;
+}  

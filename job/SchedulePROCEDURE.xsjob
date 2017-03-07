@@ -1,0 +1,10 @@
+{
+    "description": "schedule procedure Job",
+    "action": "i321482.job::InsertIt",
+    "schedules": [ 
+    {
+          "description": "run every 30 seconds",
+          "xscron": "* * * * * * */30"
+      }
+    ]
+}

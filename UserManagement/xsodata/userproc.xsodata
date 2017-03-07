@@ -1,0 +1,6 @@
+
+service  { 
+   "User"."USERDETAILS" as "Users" 
+  	  create using "i321482.UserManagement.xsodata.procedures::userCreate"
+  	  update events (before "i321482.UserManagement.xsodata.procedures::userUpdate") ;
+}  

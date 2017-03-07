@@ -1,0 +1,51 @@
+PROCEDURE "User"."i321482.UserManagement.xsodata.procedures::userUpdate" (
+	IN  new "User".UserDetails,
+	IN  old "User".UserDetails, 
+	OUT error "User".tt_errors
+) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+	--DEFAULT SCHEMA <default_schema_name>
+	--READS SQL DATA 
+	AS
+BEGIN
+
+ -- 修改后的数据变量
+ declare la_pers_no   string;
+ declare la_firstname string;
+ declare la_lastname  string;
+ declare la_e_mail    string;
+ -- 修改前的数据变量
+ declare lb_pers_no 	string;
+ declare lb_firstname 	string;
+ declare lb_lastname	string;
+ declare lb_e_mail		string;
+ -- 记录@标记的位置
+ declare lv_locate    	integer;
+
+ -- 获取修改前数据
+ select PERS_NO, FIRSTNAME, LASTNAME, E_MAIL 
+    into la_pers_no, la_firstname, la_lastname, la_e_mail
+    from :new;
+
+ -- 获取修改后的数据
+ select PERS_NO, FIRSTNAME, LASTNAME, E_MAIL 
+    into lb_pers_no, lb_firstname, lb_lastname, lb_e_mail
+    from :old;
+  
+ -- 校验规则
+ select locate(:la_e_mail, '@') into lv_locate from dummy ;
+ if :lv_locate = 0 then
+	  error = 	  	
+	  	select 400 as http_status_code, 
+	  		   'invalid ID' error_message, 
+	  		   'please input the legal email format' detail 
+	  	 from dummy; 
+ elseif :la_firstname = 'elan' then 
+   	  error = 
+   		 select 500 as http_status_code, 
+               'Invalid Name: ' || :la_firstname as error_message, 
+                     'No Way! It''s my name' as detail from dummy;
+ end if; 
+
+END;

@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+        
+        <style>
+            #main { width: 100%; }
+            #Bar { float: left; width: 50%; }
+            #Pie{ float: right;width: 50%; }
+            #Detail { clear: both; }            
+        </style>
+        		
+		<script src="/sap/ui5/1/resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.ui.core,sap.ui.commons,sap.ui.table,sap.viz"
+				data-sap-ui-theme="sap_bluecrystal">
+		</script>
+		<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
+
+		<script>
+		/*
+		var oModel = new sap.ui.model.json.JSONModel("/i321482/CodeJam/services/city.xsodata/city");
+	    sap.ui.getCore().setModel(oModel);
+		
+	    var dataset = new sap.viz.ui5.data.FlattenedDataset({
+			dimension : [
+				{ axis:1, name: 'City Name', value: "{CITY_NAME}" }
+			] ,
+		    measures : [
+		    	{ name: 'Timezone', value: "{TIMEZONE}" }
+		    ] ,
+		    data: { path : "/d/results" }
+		}) ;
+	    
+	    new sap.viz.ui5.Column("oChart", {
+	    	width: "100%",
+	    	height: "200px",
+	    	title : {visible: true, text: "City Zone"},
+	    	dataset: dataset
+	    }).placeAt("content");
+			*/
+
+		    // some business data 
+			var oModel = new sap.ui.model.json.JSONModel({
+				businessData : [
+					{Country :"Canada",revenue:410.87,profit:-141.25, population:34789000},
+					{Country :"China",revenue:338.29,profit:133.82, population:1339724852},
+					{Country :"France",revenue:487.66,profit:348.76, population:65350000},
+					{Country :"Germany",revenue:470.23,profit:217.29, population:81799600},
+					{Country :"India",revenue:170.93,profit:117.00, population:1210193422},
+					{Country :"United States",revenue:905.08,profit:609.16, population:313490000}
+				]
+			});		
+			
+		    // -------------------------------- Bar --------------------------------------------
+			// filter less equal than 400
+			var oFilter400 = new sap.ui.model.Filter('revenue', sap.ui.model.FilterOperator.GT, 400) ;
+		    
+			var oDatasetBar = new sap.viz.ui5.data.FlattenedDataset({
+				dimensions : [ { axis : 1,  name : 'Country', value : "{Country}" } ], 
+				measures : [ 
+					{ name : 'Profit',  value : '{profit}' },
+					{ name : 'Revenue', value : '{revenue}' } 
+				],
+				data : { path : "/businessData", filters: [oFilter400] },
+				parameters: { select: 'Country, revenue, Profit' }
+			});
+
+		    // var oBarChart = new sap.viz.ui5.Pie({
+		    var oBar = new sap.viz.ui5.Bar({
+		    // var oBarChart = new sap.viz.ui5.Column({
+				width : "100%",
+				height : "400px",
+				title : { visible : true, text : 'Profit&Revenue By Country' },
+			 	selectData : function(oEvent) {
+			 		// get the event data as provided by the native sap.viz library
+			 		var oSelectData = oEvent.getParameter("data");
+			 		
+			 		// let the dataset convert the event coordinates back to a UI5 model context
+			 		var oContext = this.getDataset().findContext(oSelectData[0].data[0].ctx.path);
+
+			 	},				
+				dataset : oDatasetBar
+			});
+			oBar.setModel(oModel);
+			oBar.placeAt("Bar");
+
+		    // -------------------------------- Pie --------------------------------------------
+			// filter less equal than 200
+			var oFilter200 = new sap.ui.model.Filter('revenue', sap.ui.model.FilterOperator.GT, 200) ;
+		    
+			var oDatasetPie = new sap.viz.ui5.data.FlattenedDataset({
+				dimensions : [ { axis : 1,  name : 'Country', value : "{Country}" } ], 
+				measures : [ 
+					{ name : 'Revenue', value : '{revenue}' } 
+				],
+				data : { path : "/businessData", filters: [oFilter200] },
+				parameters: { select: 'Country, revenue' }
+			});
+
+		    var oPie = new sap.viz.ui5.Pie({
+				width : "100%",
+				height : "400px",
+				title : { visible : true, text : 'Revenue By Country' },
+				dataset : oDatasetPie
+			});
+		    oPie.setModel(oModel);
+		    oPie.placeAt("Pie");			
+		    
+		 // -------------------------------- table --------------------------------------------
+
+            var oTable = new sap.ui.table.Table({
+                title: "Detail Information",
+                visibleRowCount: 7,
+                firstVisibleRow: 3,
+                selectionMode: sap.ui.table.SelectionMode.Single
+            });
+            
+            var oColumn = new sap.ui.table.Column({
+                label: new sap.ui.commons.Label({text: "Country"}),
+                template: new sap.ui.commons.TextView().bindProperty("text", "Country"),
+                sortProperty: "Country",
+                filterProperty: "Country",
+                width: "100px"
+            });
+            oTable.addColumn(oColumn);
+    
+            var oColumn = new sap.ui.table.Column({
+                label: new sap.ui.commons.Label({text: "revenue"}),
+                template: new sap.ui.commons.TextView().bindProperty("text", "revenue"),
+                sortProperty: "revenue",
+                filterProperty: "revenue",
+                width: "100px"
+            });
+            oTable.addColumn(oColumn);
+            
+            var oColumn = new sap.ui.table.Column({
+                label: new sap.ui.commons.Label({text: "profit"}),
+                template: new sap.ui.commons.TextView().bindProperty("text", "profit"),
+                sortProperty: "profit",
+                filterProperty: "profit",
+                width: "100px"
+            });
+            oTable.addColumn(oColumn);
+ 
+            var oColumn = new sap.ui.table.Column({
+                label: new sap.ui.commons.Label({text: "population"}),
+                template: new sap.ui.commons.TextView().bindProperty("text", "population"),
+                sortProperty: "population",
+                filterProperty: "population",
+                width: "100px"
+            });
+            oTable.addColumn(oColumn);            
+            
+            oTable.setModel(oModel);
+            oTable.bindRows("/businessData");
+            oTable.placeAt("Detail");       
+            
+		</script>
+
+	</head>
+	<body id="main" class="sapUiBody" role="application">
+		<div id="Bar"></div>
+		<div id="Pie"></div>
+		<div id="Detail"></div>
+	</body>
+</html>

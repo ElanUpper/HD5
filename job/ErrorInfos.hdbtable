@@ -1,0 +1,13 @@
+
+table.schemaName = "User";
+table.tableType = ROWSTORE; // ROWSTORE is an alternative value
+
+
+table.columns =
+ [
+	{name = "DATE";  sqlType = NVARCHAR;  length = 40; },
+    {name = "USER";  sqlType = NVARCHAR;  length = 20; },
+    {name = "INFO";  sqlType = NVARCHAR;  length = 500;}   
+];	
+
+table.primaryKey.pkcolumns = ["DATE", "USER"];
